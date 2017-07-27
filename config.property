@@ -1,0 +1,64 @@
+#--IE driver--!
+driver_path_IE=./Drivers/IEDriverServer.exe
+driver_value_IE=webdriver.ie.driver
+browser_name_IE=IE
+
+#--Chrome driver--!
+driver_path_chrome=./Drivers/chromedriver.exe
+driver_value_chrome=webdriver.chrome.driver
+browser_name_chrome=Chrome
+
+#--Login Information--!
+url =https://iris3.ciodev.accenture.com/IRIS2.0
+username = kishan.lal.bhayal	
+password = 33Mann@3030
+
+#--SQL Connection String and queries--#
+connectionString =jdbc:sqlserver://10.200.114.224;user=dwq_iris;password=Acc123$$;database=5097_IRIS2.0_AT
+criticalSLAQuery1=SELECT SUM([SLAComplianceSummary].TotalMetricsNbr) AS 'Total SLA',SUM([SLAComplianceSummary].MetMetricsNbr) AS 'CSL Met' FROM [IRIS].[ProjectDemographic] INNER JOIN [IRIS].[SubmissionCadence] ON   1=1 AND [SubmissionCadence].[DateDt] BETWEEN (GETUTCDATE()-366)  AND (GETUTCDATE()-1) INNER JOIN [IRIS].[SLAComplianceSummary] ON [SLAComplianceSummary].SubmissionCadenceId = [SubmissionCadence].SubmissionCadenceId AND [SLAComplianceSummary].TypeOfSubmissionId = 3 AND [SLAComplianceSummary].[ProjectDemographicsId] = [ProjectDemographic].[ProjectDemographicId] AND [SLAComplianceSummary].[TargetTypeId] in (SELECT TargetTypeId FROM [IRIS].[TargetType] WHERE TargetTypeNm = 'Critical SLA' AND [ProjectDemographic].DeliveryReportingCountryId = '57' AND [SubmissionCadence].YearNbr = '2017' AND [SubmissionCadence].MonthNm = '
+criticalSLAQuery2=')
+
+#--Excel - Sheet Names --#
+testDataPath=.\\TestData\\IrisData.xlsx
+leftMenu=LeftTopMenu
+dashboardExcel=Dashboard
+userRoles=UserRole
+cockpitReportTab=CockpitReportTab
+
+#---Web Elements of Login Page---!
+login_username=//*[@id="userNameInput"]
+login_password=//*[@id="passwordInput"]
+login_submit=//*[@id="submitButton"]
+
+#---Web Elements of IRIS Page---!
+homepagetitle =IRIS
+irisMenu =//*[@class='acn-menu']
+irisLogo =//*[@class='menu-button']/following::a[contains(text(),'IRIS')]
+loggedInUserProfileImage =//div[@id='divProfilePic']
+loggedInUserName =//li[@class='labelusername userProfileLabel']/child::div[1]
+logout =//a[contains(text(),'Logout')]
+footer =//div[contains(text(),'© 2017 - Infrastructure Services - Accenture Operations')]
+footerText =© 2017 - Infrastructure Services - Accenture Operations
+verticalMenu =//ul[@class='nav navbar-nav ng-scope']/li/a
+dashboard =//*[@id='dashBoards']
+dashboardDropdown =//ul[@id='Dashboard']/li/a
+cockpit =(//ul[@id='Dashboard']/li/a)[3]
+
+
+#---Web Elements of Cockpit Report Page---!
+cockpitReportTabs=//ul[@class='r-tabs-nav']/li/a
+ioOperation=//a[contains(text(),'IO Operations Report')]
+activeTab=r-tabs-tab r-tabs-state-active
+selectMonth=//*[@id='datePickCockpit']
+criticalSLA=//span[text()='Critical SLA Compliance']
+download=//span[text()='Download']
+data=//span[text()='Data']
+noOfMonth=//table[@class='datatable']/tbody//td[text()='Total CSL']//following-sibling::td[1]
+totalCSL1=//table[@class='datatable']/tbody//td[text()='Total CSL']//following-sibling::td[contains(text(),'
+totalCSL2=')]//following-sibling::td[2]
+metCSL1=//table[@class='datatable']/tbody//td[text()='CSL Met ']//following-sibling::td[contains(text(),'
+metCSL2=')]//following-sibling::td[2]
+cslCompliance1=//table[@class='datatable']/tbody//td[text()='CSL Compliance%']//following-sibling::td[contains(text(),'
+cslCompliance2=')]//following-sibling::td[1]
+criticalSLAMoreDetails=//*[@id='view5561218686836924094_7677449417893218725']/div[1]/div[2]/canvas[2]
+slaHeader=//span[text()='Critical SLA Compliance']
